@@ -9,8 +9,8 @@ public interface EnrolleeService {
 	public Enrollee updateEnrollee(Enrollee enrollee);
 	public Enrollee removeEnrollee(Enrollee enrollee);
 	
-	//dependent service methdos
-	public Dependent addDependent(Dependent dependent, Enrollee enrollee);
-	public Enrollee updateDependent(Dependent dependent, Enrollee enrollee);
-	public Enrollee removeDependent(Dependent dependent, Enrollee enrollee);
+	//dependent service methods
+	public Dependent addDependent(Dependent dependent);
+	public Dependent updateDependent(Dependent dependent);
+	public Dependent removeDependent(Dependent dependent);
 }

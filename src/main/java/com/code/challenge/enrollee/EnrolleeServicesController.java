@@ -1,7 +1,6 @@
 package com.code.challenge.enrollee;
 
 import java.util.UUID;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.code.challenge.enrollee.services.EnrolleeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
 import com.code.challenge.enrollee.model.Dependent;
@@ -29,49 +29,49 @@ import com.code.challenge.enrollee.model.Enrollee;
 
 @RestController
 public class EnrolleeServicesController {
-	private static final String VALIDATION_ERROR_FOR_NUMERIC_PARAMS = "Validation error(s): [minRoomCount, maxRoomCount] must be whole numbers; [minBathroom, maxBathroom, minPrice, maxPrice] must be whole numbers or decimals";
-	private static final String VALIDATION_ERROR_FOR_UUID = "Validation error: id must be of type Universally Unique Identifier (UUID)";
-	private static final String VALIDATION_ERROR_FOR_COUNTRY_STATE_CITY = "Validation error: no unique row using combination of cityName, stateCode, or countryCode. There may be multiple rows, so enter specific countyName and enter it exactly.";
-	
 	@Autowired
 	EnrolleeService enrolleeServices;
 	
 	@ApiOperation(value="Add a new enrollee")
 	@PostMapping(value = "${enrollees.api.path}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Enrollee insertNewEnrollee(@Valid @RequestBody Enrollee requestEnrollee) {
-		return enrolleeServices.insertEnrollee(requestEnrollee);
+		return enrolleeServices.insertEnrollee( new Enrollee(null, requestEnrollee.getName(), requestEnrollee.getBirthDate(), 
+												requestEnrollee.isActivationStatus(), requestEnrollee.getPhoneNumber()) );
 	}
 
 	@ApiOperation(value="Modify an existing enrollee")
-	@PutMapping(value = "${enrollees.api.path}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Enrollee updateExistingEnrollee(@Valid @RequestBody Enrollee requestEnrollee) {
-		return enrolleeServices.updateEnrollee(requestEnrollee);
+	@PutMapping(value = "${enrollees.api.path}/{enrolleeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Enrollee updateExistingEnrollee(@ApiParam(value="Enrollee ID. Must be of type UUID") @PathVariable UUID enrolleeId, 
+									@Valid @RequestBody Enrollee requestEnrollee) {
+		return enrolleeServices.updateEnrollee( new Enrollee(enrolleeId, requestEnrollee.getName(), requestEnrollee.getBirthDate(), 
+												requestEnrollee.isActivationStatus(), requestEnrollee.getPhoneNumber()) );
 	}
 	
 	@ApiOperation(value="Remove an enrollee entirely")
-	@DeleteMapping(value = "${enrollees.api.path}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Enrollee removeExistingEnrollee(@Valid @RequestBody Enrollee requestEnrollee) {
-		return enrolleeServices.removeEnrollee(requestEnrollee);
+	@DeleteMapping(value = "${enrollees.api.path}/{enrolleeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Enrollee removeExistingEnrollee(@ApiParam(value="Enrollee ID. Must be of type UUID") @PathVariable UUID enrolleeId) {
+		return enrolleeServices.removeEnrollee(new Enrollee(enrolleeId));
 	}
 	
 	@ApiOperation(value="Add dependents to an enrollee")
 	@PostMapping(value = "${enrollees.api.path}/{enrolleeId}/${dependent.url.suffix}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Dependent insertNewDependentForExistingEnrollee(/*@ApiParam(value="Enrollee ID. Must be of type UUID")*/ @PathVariable UUID enrolleeId,
+	public Dependent insertNewDependentForExistingEnrollee(@ApiParam(value="Enrollee ID. Must be of type UUID") @PathVariable UUID enrolleeId,
 			@Valid @RequestBody Dependent requestDependent) {
-		return enrolleeServices.addDependent(requestDependent, new Enrollee(enrolleeId));
-	}
-	
-	@ApiOperation(value="Remove dependents from an enrollee")
-	@PutMapping(value = "${enrollees.api.path}/{enrolleeId}/${dependent.url.suffix}/{dependentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Enrollee updateExistingDependentForExistingEnrollee(/*@ApiParam(value="Enrollee ID. Must be of type UUID")*/ @PathVariable UUID enrolleeId,
-			/*@ApiParam(value="Dependent ID. Must be of type UUID")*/ @PathVariable UUID dependentId) {
-		return enrolleeServices.updateDependent(new Dependent(dependentId), new Enrollee(enrolleeId));
+		return enrolleeServices.addDependent( new Dependent(null, enrolleeId, requestDependent.getName(), requestDependent.getBirthDate()) );
 	}
 	
 	@ApiOperation(value="Modify existing dependents")
+	@PutMapping(value = "${enrollees.api.path}/{enrolleeId}/${dependent.url.suffix}/{dependentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Dependent updateExistingDependentForExistingEnrollee(@ApiParam(value="Enrollee ID. Must be of type UUID") @PathVariable UUID enrolleeId,
+															@ApiParam(value="Dependent ID. Must be of type UUID") @PathVariable UUID dependentId,
+															@Valid @RequestBody Dependent requestDependent) {
+		return enrolleeServices.updateDependent( new Dependent(dependentId, enrolleeId, requestDependent.getName(), requestDependent.getBirthDate()) );
+	}
+	
+	@ApiOperation(value="Remove dependents from an enrollee")
 	@DeleteMapping(value = "${enrollees.api.path}/{enrolleeId}/${dependent.url.suffix}/{dependentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Enrollee removeExistingDependentForExistingEnrollee(/*@ApiParam(value="Enrollee ID. Must be of type UUID")*/ @PathVariable UUID enrolleeId,
-			/*@ApiParam(value="Dependent ID. Must be of type UUID")*/ @PathVariable UUID dependentId) {
-		return enrolleeServices.removeDependent(new Dependent(dependentId), new Enrollee(enrolleeId));
+	public Dependent removeExistingDependentForExistingEnrollee(@ApiParam(value="Enrollee ID. Must be of type UUID") @PathVariable UUID enrolleeId,
+															@ApiParam(value="Dependent ID. Must be of type UUID") @PathVariable UUID dependentId) {
+		return enrolleeServices.removeDependent( new Dependent(dependentId, enrolleeId) );
 	}
 }
