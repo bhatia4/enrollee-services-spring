@@ -8,9 +8,11 @@ Implemented using Spring framework libraries - Spring Boot, Spring Boot Validati
 
 * For deployment/testing right away use the enrollee-services-0.0.1-SNAPSHOT.jar file found under target folder. You can run the jar as is since its implemented as standalone microservice (w/ embedded undertow library). Run the scripts/execute-enrollee-services.bat or scripts/execute-enrollee-services.sh based on your OS for starting up the services and testing.
 
-* For setup as project. The project has maven build framework and can be imported as maven project in any IDE.
+* For setup as project. The project has maven build framework and can be imported as maven project in any IDE. The code also has mvnw and mvnw.cmd files which are Maven wrappers and allow you to run the Maven project in command line. The mvnw file is for Linux (bash) and the mvnw.cmd is for the Windows environment.
 
-* Once deployment is successful, using postman or any services client you can test against following endpoints:
+## Testing
+
+Once deployment is successful, using postman or any services client you can test against following endpoints:
 * Add a new enrollee - HTTP POST localhost:8080/api/v1/enrollees/
 * Modify an existing enrollee - HTTP PUT localhost:8080/api/v1/enrollees/:enrolleeid/
 * Remove an enrollee entirely - HTTP DELETE localhost:8080/api/v1/enrollees/:enrolleeid/
