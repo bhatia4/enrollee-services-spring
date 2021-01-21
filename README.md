@@ -49,6 +49,7 @@ Tested and run against Java SE 11
 * More details on tables above [here](https://htmlpreview.github.io/?https://github.com/bhatia4/enrollee-services-spring/blob/master/db/enrolleesdb.html)
 * DDL scripts on creating above tables on your own Postgres database server [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/db/enrolleesdb.sql)
 * To update database server and client connection goto application.properties file found [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/src/main/resources/application.properties). Change properties spring.datasource.url, spring.datasource.username & spring.datasource.password
+* db/enrolleesdb.dbm is a Database Model file that encompasses the above data model. The file can be viewed/edited only in pgModeler (PostgreSQL Database Modeler)
 
 ## Links used as reference while coding
 * [https://spring.io/guides/gs/spring-boot/#scratch](https://spring.io/guides/gs/spring-boot/#scratch)
