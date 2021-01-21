@@ -1,6 +1,6 @@
 # Enrollees Services using Java & Sprint Boot
 
-Coding completed by [Kunal Bhatia](https://github.com/bhatia4/), as as part of coding challenge (Challenge details [here](https://github.com/bhatia4/enrollee-services/blob/main/backend-challenge.md))
+Coding completed by [Kunal Bhatia](https://github.com/bhatia4/), as as part of coding challenge (Challenge details [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/backend-challenge.md))
 
 Implemented using Spring framework libraries - Spring Boot, Spring Boot Validation and Spring JPA (as ORM impl.). Also used Springfox Swagger libraries to setup Swagger API documentation & testing platform for the API. Goto [http://localhost:8080/swagger-ui/](http://localhost:8080/swagger-ui/) to view/test using Swagger UI for any respective API endpoint.
 
@@ -43,9 +43,12 @@ Once deployment is successful, using postman or any services client you can test
 Tested and run against Java SE 11 
 
 ## Database Documentation
+* Database model shown below:
 <img src="https://raw.githubusercontent.com/bhatia4/enrollee-services-spring/master/db/enrolleesdb%20DB%20model%20diagram.png">
 <br/>
-
+* More details on tables above [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/db/enrolleesdb.html)
+* DDL scripts on creating above tables on your own Postgres database server [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/db/enrolleesdb.sql)
+* To update database server and client connection goto application.properties fiel found [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/src/main/resources/application.properties). Change properties spring.datasource.url, spring.datasource.username & spring.datasource.password
 
 ## Links used as reference while coding
 * [https://spring.io/guides/gs/spring-boot/#scratch](https://spring.io/guides/gs/spring-boot/#scratch)
