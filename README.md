@@ -42,6 +42,9 @@ Once deployment is successful, using postman or any services client you can test
 
 Tested and run against Java SE 11 
 
+## Database Documentation
+https://raw.githubusercontent.com/bhatia4/enrollee-services-spring/master/db/enrolleesdb%20DB%20model%20diagram.png
+
 ## Links used as reference while coding
 * [https://spring.io/guides/gs/spring-boot/#scratch](https://spring.io/guides/gs/spring-boot/#scratch)
 * [https://start.spring.io/](https://start.spring.io/)
