@@ -45,9 +45,11 @@ Tested and run against Java SE 11
 ## Database Documentation
 * Database model shown below:
 <img src="https://raw.githubusercontent.com/bhatia4/enrollee-services-spring/master/db/enrolleesdb%20DB%20model%20diagram.png">
-<br/>
+
 * More details on tables above [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/db/enrolleesdb.html)
+
 * DDL scripts on creating above tables on your own Postgres database server [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/db/enrolleesdb.sql)
+
 * To update database server and client connection goto application.properties fiel found [here](https://github.com/bhatia4/enrollee-services-spring/blob/master/src/main/resources/application.properties). Change properties spring.datasource.url, spring.datasource.username & spring.datasource.password
 
 ## Links used as reference while coding
